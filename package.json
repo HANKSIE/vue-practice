@@ -43,12 +43,6 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "babel": {
-    "presets": [
-      "env",
-      "vue"
-    ]
-  },
   "dependencies": {
     "vue": "^2.6.11"
   }

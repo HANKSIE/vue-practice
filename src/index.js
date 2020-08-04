@@ -1,12 +1,8 @@
 import Vue from 'vue';
-import hello from './hello.vue';
+import App from './app.vue';
 
 new Vue({
     el: '#app',
-    mounted: function () {
-        console.log('Hello World');
-
-    },
-    components: { hello },
-    template: '<hello/>'
+    components: { App },
+    template: `<App/>`
 });

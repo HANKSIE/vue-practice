@@ -38,8 +38,12 @@ module.exports = {
             filename: 'index.css',
         }),
         new HtmlWebpackPlugin({
-            template: './index.html',
+            template: './public/index.html',
             filename: 'index.html',
+            minify: { //压缩HTML文件
+                removeComments: true, //移除HTML中的注释
+                collapseWhitespace: false //删除空白符与换行符
+            }
         }),
         new VueLoaderPlugin()
     ],
@@ -71,6 +75,7 @@ module.exports = {
                 test: /\.css$/i,
                 use: [
                     'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -83,8 +88,8 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',

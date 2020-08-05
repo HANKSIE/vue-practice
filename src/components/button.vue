@@ -21,6 +21,7 @@ export default {
     };
   },
   methods: {
+    
     down: function () {
       this.setting.event();
       this.inlineStyle = { boxShadow: "none" };

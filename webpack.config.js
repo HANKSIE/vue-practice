@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+const fibers = require('fibers');
 
 
 module.exports = {
@@ -65,7 +66,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
                 query: {
                     presets: ["@babel/preset-env"],
                     plugins: ["@babel/plugin-proposal-class-properties"],
@@ -97,7 +97,14 @@ module.exports = {
                             plugins: [autoprefixer]
                         }
                     },
-                    'sass-loader'
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                          sassOptions: {
+                            fiber: fibers,
+                          },
+                        },
+                      },
                 ],
             },
             {

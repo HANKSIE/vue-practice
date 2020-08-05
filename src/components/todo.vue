@@ -5,7 +5,7 @@
         type: 'green',
         text: '放大',
         event: function(){$emit('enlarge')}
-        }"
+        }" :hello="'hello'"
     />
     <p>
       新增日期
@@ -37,7 +37,9 @@
 import TodoItem from "./todo-item";
 import Btn from "./button";
 export default {
-  props: ["todos"],
+  props: {
+    todos: Array
+  },
 
   data: function () {
     return {

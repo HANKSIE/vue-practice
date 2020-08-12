@@ -1,18 +1,21 @@
 <template>
-  <div :class="`nav${isFixed?'-fixed':''}`">
-    <div class="nav-logo">
-      <slot name="logo"></slot>
-    </div>
-    <div class="nav-menu">
-      <div class="nav-menu-btn" @click="isShow = !isShow">
-        <font-awesome-icon icon="bars" />
+  <div>
+    <nav :class="`nav${isFixed ? '-fixed' : ''}`" ref="navbar">
+      <div class="nav-logo">
+        <slot name="logo"></slot>
       </div>
-      <template v-if="isShow">
-        <div class="nav-item-group">
-          <slot name="items"></slot>
+      <div class="nav-menu">
+        <div class="nav-menu-btn" @click="isShow = !isShow">
+          <font-awesome-icon icon="bars" />
         </div>
-      </template>
-    </div>
+        <template v-if="isShow">
+          <div class="nav-item-group">
+            <slot name="items"></slot>
+          </div>
+        </template>
+      </div>
+    </nav>
+    <div :style="fillStyle"></div>
   </div>
 </template>
 
@@ -28,18 +31,24 @@ export default {
     },
   },
 
-  data: function () {
+  data: function() {
     return {
       isShow: true,
+      fillStyle: {},
     };
   },
 
-  created: function () {
+  created: function() {
     window.addEventListener("resize", () => {
       this.isShow = window.matchMedia("(max-width: 600px)").matches
         ? this.isShow
         : true;
     });
+  },
+
+  mounted: function() {
+    const { clientHeight, clientWidth } = this.$refs.navbar;
+    this.fillStyle = { height: `${clientHeight}px`, width: `${clientWidth}px` };
   },
 
   components: { DropDown, DropItem, DropBtn },
@@ -106,12 +115,13 @@ export default {
         }
       }
       .nav-item-group {
-        @include vt-layout;
-
         position: fixed;
+        display: block;
         background-color: #444444;
         left: 0;
+        top: 0;
         box-shadow: 0 3px 5px #cccccc;
+        max-height: 100vh;
         min-height: 100vh;
         overflow-y: scroll;
       }

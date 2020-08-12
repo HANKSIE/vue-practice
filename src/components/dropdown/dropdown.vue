@@ -1,7 +1,10 @@
 <template>
   <div class="dropdown">
     <slot name="btn" :handle="toggle"></slot>
-    <div :class="`drop-list${isFixed?'-fixed':''}`" v-if="isShow">
+    <div
+      :class="`drop-list${isAbsoluteList ? '-absolute' : ''}`"
+      v-show="isShow"
+    >
       <slot name="items"></slot>
     </div>
   </div>
@@ -11,7 +14,7 @@
 export default {
   props: {
     text: String,
-    isFixed: {
+    isAbsoluteList: {
       type: Boolean,
       default: false,
     },
@@ -20,17 +23,17 @@ export default {
       default: () => {},
     },
   },
-  data: function () {
+  data: function() {
     return {
       isShow: false,
     };
   },
   methods: {
-    toggle: function () {
+    toggle: function() {
       this.isShow = !this.isShow;
     },
   },
-  created: function () {
+  created: function() {
     this.createdHandle();
   },
 };
@@ -51,7 +54,7 @@ export default {
     @include list;
     position: static;
   }
-  .drop-list-fixed {
+  .drop-list-absolute {
     @include list;
     position: absolute;
   }

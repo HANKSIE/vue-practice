@@ -1,10 +1,12 @@
 <template>
   <div>
     <ConfirmPanel>
-      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm>
+      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">
+        confirm
+      </Confirm>
     </ConfirmPanel>
     <Lock>
-      <NavBar>
+      <NavBar :isFixed="true">
         <template v-slot:logo>Hello</template>
         <template v-slot:items>
           <router-link to="/">
@@ -13,8 +15,11 @@
           <router-link to="/about">
             <NavItem>關於我們</NavItem>
           </router-link>
-          <DropDown :isFixed="isFixedDrop" :createdHandle="dropResize">
-            <template v-slot:btn="{handle}">
+          <DropDown
+            :isAbsoluteList="isAbsoluteList"
+            :createdHandle="dropResize"
+          >
+            <template v-slot:btn="{ handle }">
               <DropBtn :handle="handle">
                 <NavItem>貼文</NavItem>
               </DropBtn>
@@ -34,9 +39,12 @@
           <router-link to="/login">
             <NavItem>登入</NavItem>
           </router-link>
-          <DropDown :isFixed="isFixedDrop" :createdHandle="dropResize">
-            <template v-slot:btn="{handle}">
-              <DropBtn :handle="handle" :isFixed="true">
+          <DropDown
+            :isAbsoluteList="isAbsoluteList"
+            :createdHandle="dropResize"
+          >
+            <template v-slot:btn="{ handle }">
+              <DropBtn :handle="handle" :isAbsoluteList="true">
                 <NavItem>106021014</NavItem>
               </DropBtn>
             </template>
@@ -58,15 +66,20 @@
         </template>
       </NavBar>
 
-      <main>
+      <main class="main">
         <ToastPanel>
           <Toast>hi</Toast>
           <Toast :type="`success`">success</Toast>
           <Toast :type="`warn`">warn</Toast>
-          <Toast :type="`error`" :close="true">error, and it can be closed</Toast>
+          <Toast :type="`error`" :close="true"
+            >error, and it can be closed</Toast
+          >
         </ToastPanel>
         <router-view></router-view>
       </main>
+      <Footer :style="{ height: '15vh' }">
+        Copyright © 2020 BYJT
+      </Footer>
     </Lock>
   </div>
 </template>
@@ -82,25 +95,26 @@ import Confirm from "./components/confirm/confirm";
 import ToastPanel from "./components/toast/panel";
 import ConfirmPanel from "./components/confirm/panel";
 import Lock from "./components/confirm/lock";
+import Footer from "./components/footer";
 
 export default {
-  data: function () {
+  data: function() {
     return {
-      isFixedDrop: !window.matchMedia("(max-width: 600px)").matches,
+      isAbsoluteList: !window.matchMedia("(max-width: 600px)").matches,
     };
   },
 
   methods: {
-    dropResize: function () {
+    dropResize: function() {
       window.addEventListener("resize", () => {
-        this.isFixedDrop = !window.matchMedia("(max-width: 600px)").matches;
+        this.isAbsoluteList = !window.matchMedia("(max-width: 600px)").matches;
       });
     },
 
-    confirmOK: function () {
+    confirmOK: function() {
       console.log("ok");
     },
-    confirmCancel: function () {
+    confirmCancel: function() {
       alert("OMG");
     },
   },
@@ -116,6 +130,15 @@ export default {
     ToastPanel,
     ConfirmPanel,
     Lock,
+    Footer,
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "./styles/helpers/mixins.scss";
+.main {
+  @include center-layout;
+  width: 100%;
+  height: 85vh;
+}
+</style>

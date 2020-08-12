@@ -1,5 +1,5 @@
 <template>
-  <div :class="$store.state.isLock?`lock`:``">
+  <div :class="$store.state.isLock ? `lock` : ``">
     <slot></slot>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {};
   opacity: 0.5;
   position: fixed;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   z-index: 50;
 }
 </style>

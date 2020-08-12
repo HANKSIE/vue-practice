@@ -3,6 +3,7 @@ import App from "./app.vue";
 import Vuex from "vuex";
 import vuetify from "./plugins/vuetify"; // path to vuetify export
 
+import "./font-awesome";
 import router from "./router";
 import "./styles/reset/all.scss";
 

@@ -11,13 +11,18 @@
 export default {
   props: {
     text: String,
-    isFixed: Boolean,
-    resizeHandle: Function,
+    isFixed: {
+      type: Boolean,
+      default: false,
+    },
+    createdHandle: {
+      type: Function,
+      default: () => {},
+    },
   },
   data: function () {
     return {
       isShow: false,
-      listHeight: 0,
     };
   },
   methods: {
@@ -25,10 +30,8 @@ export default {
       this.isShow = !this.isShow;
     },
   },
-  mounted: function () {
-    window.addEventListener("resize", () => {
-      this.resizeHandle();
-    });
+  created: function () {
+    this.createdHandle();
   },
 };
 </script>
@@ -38,16 +41,19 @@ export default {
   z-index: 1;
   background-color: #444444;
   white-space: nowrap;
+  min-width: 100%;
+  right: 0;
 }
 
 .dropdown {
+  position: relative;
   .drop-list {
     @include list;
     position: static;
   }
   .drop-list-fixed {
     @include list;
-    position: fixed;
+    position: absolute;
   }
 }
 </style>

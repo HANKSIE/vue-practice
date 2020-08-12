@@ -1,10 +1,12 @@
 <template>
-  <div :class="`nav${fixed?'-fixed':''}`">
+  <div :class="`nav${isFixed?'-fixed':''}`">
     <div class="nav-logo">
       <slot name="logo"></slot>
     </div>
     <div class="nav-menu">
-      <div class="nav-menu-btn">三</div>
+      <div class="nav-menu-btn" @click="isShow = !isShow">
+        <font-awesome-icon icon="bars" />
+      </div>
       <template v-if="isShow">
         <div class="nav-item-group">
           <slot name="items"></slot>
@@ -20,12 +22,24 @@ import DropItem from "../dropdown/item";
 import DropBtn from "../dropdown/button";
 export default {
   props: {
-    fixed: Boolean,
+    isFixed: {
+      type: Boolean,
+      default: false,
+    },
   },
+
   data: function () {
     return {
       isShow: true,
     };
+  },
+
+  created: function () {
+    window.addEventListener("resize", () => {
+      this.isShow = window.matchMedia("(max-width: 600px)").matches
+        ? this.isShow
+        : true;
+    });
   },
 
   components: { DropDown, DropItem, DropBtn },
@@ -98,7 +112,8 @@ export default {
         background-color: #444444;
         left: 0;
         box-shadow: 0 3px 5px #cccccc;
-        height: 100vh;
+        width: 60vw;
+        min-height: 100vh;
         overflow-y: scroll;
       }
     }

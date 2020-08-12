@@ -1,5 +1,8 @@
 <template>
   <div>
+    <ConfirmPanel>
+      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm>
+    </ConfirmPanel>
     <NavBar>
       <template v-slot:logo>Hello</template>
       <template v-slot:items>
@@ -9,7 +12,7 @@
         <router-link to="/about">
           <NavItem>關於我們</NavItem>
         </router-link>
-        <DropDown :isFixed="isFixedDrop" :resizeHandle="navDropResize">
+        <DropDown :isFixed="isFixedDrop" :createdHandle="dropResize">
           <template v-slot:btn="{handle}">
             <DropBtn :handle="handle">
               <NavItem>貼文</NavItem>
@@ -28,7 +31,7 @@
           <NavItem>連絡我們</NavItem>
         </router-link>
 
-        <DropDown :isFixed="isFixedDrop" :resizeHandle="navDropResize">
+        <DropDown :isFixed="isFixedDrop" :createdHandle="dropResize">
           <template v-slot:btn="{handle}">
             <DropBtn :handle="handle" :isFixed="true">
               <NavItem>106021014</NavItem>
@@ -52,7 +55,15 @@
       </template>
     </NavBar>
 
-    <router-view></router-view>
+    <main>
+      <ToastPanel>
+        <Toast>hi</Toast>
+        <Toast :type="`success`">success</Toast>
+        <Toast :type="`warn`">warn</Toast>
+        <Toast :type="`error`" :close="true">error, and it can be closed</Toast>
+      </ToastPanel>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -62,6 +73,10 @@ import NavItem from "./components/navbar/item";
 import DropDown from "./components/dropdown/dropdown";
 import DropItem from "./components/dropdown/item";
 import DropBtn from "./components/dropdown/button";
+import Toast from "./components/toast/toast";
+import Confirm from "./components/confirm/confirm";
+import ToastPanel from "./components/toast/panel";
+import ConfirmPanel from "./components/confirm/panel";
 
 export default {
   data: function () {
@@ -71,11 +86,30 @@ export default {
   },
 
   methods: {
-    navDropResize: function () {
-      this.isFixedDrop = !window.matchMedia("(max-width: 600px)").matches;
+    dropResize: function () {
+      window.addEventListener("resize", () => {
+        this.isFixedDrop = !window.matchMedia("(max-width: 600px)").matches;
+      });
+    },
+
+    confirmOK: function () {
+      console.log("ok");
+    },
+    confirmCancel: function () {
+      alert("OMG");
     },
   },
 
-  components: { NavBar, NavItem, DropDown, DropItem, DropBtn },
+  components: {
+    NavBar,
+    NavItem,
+    DropDown,
+    DropItem,
+    DropBtn,
+    Toast,
+    Confirm,
+    ToastPanel,
+    ConfirmPanel,
+  },
 };
 </script>

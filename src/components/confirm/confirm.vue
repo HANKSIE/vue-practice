@@ -1,0 +1,130 @@
+<template>
+  <div class="confirm" v-if="isShow">
+    <div class="message">
+      <slot></slot>
+    </div>
+    <div class="group">
+      <div class="cancel" @click="cancelDo();">{{cancel}}</div>
+      <div class="ok" @click="okDo()">{{ok}}</div>
+    </div>
+    <div class="close" @click="isShow = false">
+      <font-awesome-icon icon="times" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    ok: {
+      type: String,
+      default: "確定",
+    },
+    cancel: {
+      type: String,
+      default: "取消",
+    },
+    okHandle: {
+      type: Function,
+      default: () => {},
+    },
+    cancelHandle: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  data: function () {
+    return {
+      icon: "",
+      classObj: ["toast"],
+      isShow: true,
+    };
+  },
+  methods: {
+    okDo: function () {
+      this.isShow = false;
+      this.okHandle();
+    },
+    cancelDo: function () {
+      this.isShow = false;
+      this.cancelHandle();
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "../../styles/helpers/mixins.scss";
+
+@mixin btn {
+  cursor: pointer;
+  bottom: 15px;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.confirm {
+  @include pop;
+  @include center-layout;
+  flex-direction: column;
+  top: 0;
+  min-width: 30vw;
+  max-width: 500px;
+  background-color: #ffffff;
+
+  .message {
+    text-align: center;
+    width: 100%;
+    padding: 20px 20px;
+    border-bottom: #cccccc 1px solid;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  .close {
+    @include rt-close-btn;
+  }
+
+  .group {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    width: 100%;
+
+    .ok {
+      @include btn;
+      left: 10px;
+      background-color: #2d86b9;
+      color: white;
+    }
+    .cancel {
+      @include btn;
+      right: 10px;
+      background-color: #dfdfdf;
+      color: #666666;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .ok {
+    left: 10px;
+    background-color: #2d86b9;
+    color: white;
+  }
+
+  .cancel {
+    right: 10px;
+    background-color: #dfdfdf;
+    color: #666666;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .ok,
+  .cancel {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+}
+</style>

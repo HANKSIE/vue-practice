@@ -7,9 +7,6 @@
       <div class="cancel" @click="cancelDo();">{{cancel}}</div>
       <div class="ok" @click="okDo()">{{ok}}</div>
     </div>
-    <div class="close" @click="isShow = false">
-      <font-awesome-icon icon="times" />
-    </div>
   </div>
 </template>
 
@@ -44,11 +41,16 @@ export default {
     okDo: function () {
       this.isShow = false;
       this.okHandle();
+      this.$store.commit("unlock");
     },
     cancelDo: function () {
       this.isShow = false;
       this.cancelHandle();
+      this.$store.commit("unlock");
     },
+  },
+  mounted: function () {
+    this.$store.commit("lock");
   },
 };
 </script>
@@ -82,10 +84,6 @@ export default {
     word-break: break-all;
   }
 
-  .close {
-    @include rt-close-btn;
-  }
-
   .group {
     display: flex;
     justify-content: space-around;
@@ -107,24 +105,9 @@ export default {
   }
 }
 @media screen and (max-width: 600px) {
-  .ok {
-    left: 10px;
-    background-color: #2d86b9;
-    color: white;
-  }
-
-  .cancel {
-    right: 10px;
-    background-color: #dfdfdf;
-    color: #666666;
-  }
-}
-
-@media screen and (max-width: 300px) {
   .ok,
   .cancel {
-    padding: 10px 20px;
-    font-size: 10px;
+    margin: 0 10px;
   }
 }
 </style>

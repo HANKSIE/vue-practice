@@ -1,0 +1,16 @@
+@import "../helpers/mixins.scss";
+
+/*垂直置中*/
+.vc-layout {
+  @include vc-layout;
+}
+
+/*水平置右*/
+.hr-layout {
+  @include hr-layout;
+}
+
+/*水平置中*/
+.hc-layout {
+  @include hc-layout;
+}

@@ -112,7 +112,6 @@ export default {
         background-color: #444444;
         left: 0;
         box-shadow: 0 3px 5px #cccccc;
-        width: 60vw;
         min-height: 100vh;
         overflow-y: scroll;
       }

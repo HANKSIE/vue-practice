@@ -20,7 +20,7 @@ export default {};
 @media screen and (max-width: 600px) {
   .nav-item {
     text-align: center;
-    width: 35vw;
+    width: 60vw;
   }
 }
 </style>

@@ -1,17 +1,19 @@
 import Vue from "vue";
 import App from "./app.vue";
-import Vuex from "vuex";
 import vuetify from "./plugins/vuetify"; // path to vuetify export
 
 import "./font-awesome";
-import router from "./router";
 import "./styles/reset/all.scss";
 
-Vue.use(Vuex);
+import router from "./router";
+import store from "./store";
+
+Vue.config.productionTip = false;
 
 new Vue({
   el: "#app",
   router,
+  store,
   vuetify,
   data: {},
   components: { App },

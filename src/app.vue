@@ -1,9 +1,7 @@
 <template>
   <div>
     <ConfirmPanel>
-      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">
-        confirm
-      </Confirm>
+      <!-- <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm> -->
     </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
@@ -15,22 +13,17 @@
           <router-link to="/about">
             <NavItem>關於我們</NavItem>
           </router-link>
-          <DropDown
-            :isAbsoluteList="isAbsoluteList"
-            :createdHandle="dropResize"
-          >
+          <DropDown>
             <template v-slot:btn="{ handle }">
               <DropBtn :handle="handle">
                 <NavItem>貼文</NavItem>
               </DropBtn>
             </template>
-            <template v-slot:items>
-              <DropItem>
+            <template v-slot:list="{isShow}">
+              <DropList v-show="isShow" :style="dropListPos">
                 <NavItem>新增貼文</NavItem>
-              </DropItem>
-              <DropItem>
                 <NavItem>瀏覽貼文</NavItem>
-              </DropItem>
+              </DropList>
             </template>
           </DropDown>
           <router-link to="/contact">
@@ -39,28 +32,19 @@
           <router-link to="/login">
             <NavItem>登入</NavItem>
           </router-link>
-          <DropDown
-            :isAbsoluteList="isAbsoluteList"
-            :createdHandle="dropResize"
-          >
+          <DropDown>
             <template v-slot:btn="{ handle }">
-              <DropBtn :handle="handle" :isAbsoluteList="true">
+              <DropBtn :handle="handle">
                 <NavItem>106021014</NavItem>
               </DropBtn>
             </template>
-            <template v-slot:items>
-              <DropItem>
+            <template v-slot:list="{isShow}">
+              <DropList v-show="isShow" :style="dropListPos">
                 <NavItem>設定</NavItem>
-              </DropItem>
-              <DropItem>
                 <NavItem>貼文管理</NavItem>
-              </DropItem>
-              <DropItem>
                 <NavItem>訂單查詢</NavItem>
-              </DropItem>
-              <DropItem>
                 <NavItem>購物車</NavItem>
-              </DropItem>
+              </DropList>
             </template>
           </DropDown>
         </template>
@@ -68,18 +52,15 @@
 
       <main class="main">
         <ToastPanel>
-          <Toast>hi</Toast>
+          <!-- <Toast>hi</Toast>
+          <Toast :type="`info`" :close="true">info</Toast>
           <Toast :type="`success`">success</Toast>
           <Toast :type="`warn`">warn</Toast>
-          <Toast :type="`error`" :close="true"
-            >error, and it can be closed</Toast
-          >
+          <Toast :type="`error`" :close="true">error, and it can be closed</Toast>-->
         </ToastPanel>
         <router-view></router-view>
       </main>
-      <Footer :style="{ height: '15vh' }">
-        Copyright © 2020 BYJT
-      </Footer>
+      <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>
     </Lock>
   </div>
 </template>
@@ -88,7 +69,7 @@
 import NavBar from "./components/navbar/bar";
 import NavItem from "./components/navbar/item";
 import DropDown from "./components/dropdown/dropdown";
-import DropItem from "./components/dropdown/item";
+import DropList from "./components/dropdown/list";
 import DropBtn from "./components/dropdown/button";
 import Toast from "./components/toast/toast";
 import Confirm from "./components/confirm/confirm";
@@ -98,32 +79,32 @@ import Lock from "./components/confirm/lock";
 import Footer from "./components/footer";
 
 export default {
-  data: function() {
+  data: function () {
     return {
-      isAbsoluteList: !window.matchMedia("(max-width: 600px)").matches,
+      dropListPos: { position: "absolute" },
     };
   },
-
   methods: {
-    dropResize: function() {
-      window.addEventListener("resize", () => {
-        this.isAbsoluteList = !window.matchMedia("(max-width: 600px)").matches;
-      });
-    },
-
-    confirmOK: function() {
+    confirmOK: function () {
       console.log("ok");
     },
-    confirmCancel: function() {
+    confirmCancel: function () {
       alert("OMG");
     },
+  },
+
+  created: function () {
+    window.addEventListener("resize", () => {
+      this.dropListPos = window.matchMedia("(max-width: 600px)").matches
+        ? { position: "static" }
+        : { position: "absolute" };
+    });
   },
 
   components: {
     NavBar,
     NavItem,
     DropDown,
-    DropItem,
     DropBtn,
     Toast,
     Confirm,
@@ -131,6 +112,7 @@ export default {
     ConfirmPanel,
     Lock,
     Footer,
+    DropList,
   },
 };
 </script>

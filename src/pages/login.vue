@@ -7,8 +7,9 @@
 
 <script>
 import InputBox from "../components/input/box";
+import Button from "../components/input/button";
 export default {
-  components: { InputBox },
+  components: { InputBox, Button },
 };
 </script>
 

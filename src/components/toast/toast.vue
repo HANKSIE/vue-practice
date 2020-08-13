@@ -1,6 +1,9 @@
 <template>
   <div :class="classObj" v-if="isShow">
-    <font-awesome-icon :icon="icon" />
+    <template v-if="type.length !== 0">
+      <font-awesome-icon :icon="icon" :style="type=='info'?{color: '#028AC4'}:{}" />
+    </template>
+
     <div class="message">
       <slot></slot>
     </div>
@@ -34,6 +37,8 @@ export default {
   created: function () {
     this.icon = (() => {
       switch (this.type) {
+        case "info":
+          return "info-circle";
         case "success":
           return "check-circle";
 
@@ -42,9 +47,6 @@ export default {
 
         case "warn":
           return "exclamation-triangle";
-
-        default:
-          return "info-circle";
       }
     })();
 

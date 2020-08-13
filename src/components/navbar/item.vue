@@ -12,6 +12,7 @@ export default {};
 .nav-item {
   padding: 20px 1.5vw;
   color: #ffffff;
+  text-align: center;
   font-size: 15px;
   &:hover {
     background-color: #666666;
@@ -19,7 +20,12 @@ export default {};
 }
 @media screen and (max-width: 600px) {
   .nav-item {
-    text-align: center;
+    width: 40vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .nav-item {
     width: 60vw;
   }
 }

@@ -1,12 +1,7 @@
 <template>
   <div class="dropdown">
     <slot name="btn" :handle="toggle"></slot>
-    <div
-      :class="`drop-list${isAbsoluteList ? '-absolute' : ''}`"
-      v-show="isShow"
-    >
-      <slot name="items"></slot>
-    </div>
+    <slot name="list" :isShow="isShow"></slot>
   </div>
 </template>
 
@@ -14,49 +9,22 @@
 export default {
   props: {
     text: String,
-    isAbsoluteList: {
-      type: Boolean,
-      default: false,
-    },
-    createdHandle: {
-      type: Function,
-      default: () => {},
-    },
   },
-  data: function() {
+  data: function () {
     return {
       isShow: false,
     };
   },
   methods: {
-    toggle: function() {
+    toggle: function () {
       this.isShow = !this.isShow;
     },
-  },
-  created: function() {
-    this.createdHandle();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@mixin list {
-  z-index: 1;
-  background-color: #444444;
-  white-space: nowrap;
-  min-width: 100%;
-  right: 0;
-}
-
 .dropdown {
   position: relative;
-  .drop-list {
-    @include list;
-    position: static;
-  }
-  .drop-list-absolute {
-    @include list;
-    position: absolute;
-  }
 }
 </style>

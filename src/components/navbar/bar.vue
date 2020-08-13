@@ -20,9 +20,6 @@
 </template>
 
 <script>
-import DropDown from "../dropdown/dropdown";
-import DropItem from "../dropdown/item";
-import DropBtn from "../dropdown/button";
 export default {
   props: {
     isFixed: {
@@ -31,14 +28,14 @@ export default {
     },
   },
 
-  data: function() {
+  data: function () {
     return {
       isShow: true,
       fillStyle: {},
     };
   },
 
-  created: function() {
+  created: function () {
     window.addEventListener("resize", () => {
       this.isShow = window.matchMedia("(max-width: 600px)").matches
         ? this.isShow
@@ -46,12 +43,11 @@ export default {
     });
   },
 
-  mounted: function() {
+  mounted: function () {
+    //position: fixed，產生填充div
     const { clientHeight, clientWidth } = this.$refs.navbar;
     this.fillStyle = { height: `${clientHeight}px`, width: `${clientWidth}px` };
   },
-
-  components: { DropDown, DropItem, DropBtn },
 };
 </script>
 

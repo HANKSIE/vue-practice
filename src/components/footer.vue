@@ -8,9 +8,9 @@
 export default {};
 </script>
 <style lang="scss" scoped>
+@import "../styles/helpers/mixins.scss";
 .footer {
-  padding: 5vh 0;
-  text-align: center;
+  @include vc-layout;
   color: #ffffff;
   background-color: #444444;
 }

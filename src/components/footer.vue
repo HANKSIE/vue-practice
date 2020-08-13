@@ -11,6 +11,7 @@ export default {};
 @import "../styles/helpers/mixins.scss";
 .footer {
   @include vc-layout;
+  width: 100%;
   color: #ffffff;
   background-color: #444444;
 }

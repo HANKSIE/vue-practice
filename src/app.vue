@@ -5,7 +5,7 @@
     </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
-        <template v-slot:logo>Hello</template>
+        <template v-slot:logo>BJ</template>
         <template v-slot:items>
           <router-link to="/">
             <NavItem>首頁</NavItem>
@@ -20,7 +20,7 @@
               </DropBtn>
             </template>
             <template v-slot:list="{isShow}">
-              <DropList v-show="isShow" :style="dropListPos">
+              <DropList v-show="isShow" :style="dropListStyle">
                 <NavItem>新增貼文</NavItem>
                 <NavItem>瀏覽貼文</NavItem>
               </DropList>
@@ -39,7 +39,7 @@
               </DropBtn>
             </template>
             <template v-slot:list="{isShow}">
-              <DropList v-show="isShow" :style="dropListPos">
+              <DropList v-show="isShow" :style="dropListStyle">
                 <NavItem>設定</NavItem>
                 <NavItem>貼文管理</NavItem>
                 <NavItem>訂單查詢</NavItem>
@@ -49,18 +49,19 @@
           </DropDown>
         </template>
       </NavBar>
-
-      <main class="main">
-        <ToastPanel>
-          <!-- <Toast>hi</Toast>
+      <NavOverlay>
+        <main class="main">
+          <ToastPanel>
+            <!-- <Toast>hi</Toast>
           <Toast :type="`info`" :close="true">info</Toast>
           <Toast :type="`success`">success</Toast>
           <Toast :type="`warn`">warn</Toast>
-          <Toast :type="`error`" :close="true">error, and it can be closed</Toast>-->
-        </ToastPanel>
-        <router-view></router-view>
-      </main>
-      <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>
+            <Toast :type="`error`" :close="true">error, and it can be closed</Toast>-->
+          </ToastPanel>
+          <router-view></router-view>
+        </main>
+        <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>
+      </NavOverlay>
     </Lock>
   </div>
 </template>
@@ -68,6 +69,7 @@
 <script>
 import NavBar from "./components/navbar/bar";
 import NavItem from "./components/navbar/item";
+import NavOverlay from "./components/navbar/overlay";
 import DropDown from "./components/dropdown/dropdown";
 import DropList from "./components/dropdown/list";
 import DropBtn from "./components/dropdown/button";
@@ -81,7 +83,7 @@ import Footer from "./components/footer";
 export default {
   data: function () {
     return {
-      dropListPos: { position: "absolute" },
+      dropListStyle: this.getDropListStyle(),
     };
   },
   methods: {
@@ -91,13 +93,20 @@ export default {
     confirmCancel: function () {
       alert("OMG");
     },
+    getDropListStyle: function () {
+      return window.matchMedia("(max-width: 600px)").matches
+        ? {
+            position: "static",
+          }
+        : {
+            position: "absolute",
+          };
+    },
   },
 
   created: function () {
     window.addEventListener("resize", () => {
-      this.dropListPos = window.matchMedia("(max-width: 600px)").matches
-        ? { position: "static" }
-        : { position: "absolute" };
+      this.dropListStyle = this.getDropListStyle();
     });
   },
 
@@ -113,6 +122,7 @@ export default {
     Lock,
     Footer,
     DropList,
+    NavOverlay,
   },
 };
 </script>
@@ -122,5 +132,6 @@ export default {
   @include center-layout;
   width: 100%;
   height: 85vh;
+  background-color: #ffffff;
 }
 </style>

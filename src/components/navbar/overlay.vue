@@ -1,5 +1,5 @@
 <template>
-  <div :class="$store.state.isLock ? `lock` : ``">
+  <div :class="$store.state.isOverlay?'overlay':''">
     <slot></slot>
   </div>
 </template>
@@ -10,12 +10,8 @@ export default {};
 
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
-.lock {
+.overlay {
   @include overlay;
-  pointer-events: none;
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-  z-index: 98;
+  z-index: 95;
 }
 </style>

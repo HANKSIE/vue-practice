@@ -19,5 +19,6 @@ export default {};
   border-bottom-right-radius: 7px;
   margin-top: 2px;
   position: absolute;
+  overflow: hidden;
 }
 </style>

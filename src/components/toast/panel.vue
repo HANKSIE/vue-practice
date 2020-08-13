@@ -13,7 +13,7 @@ export default {};
 .panel {
   @include panel;
   min-height: 90vh;
-  z-index: 55;
+  z-index: 97;
 }
 
 @media screen and (max-width: 600px) {

@@ -22,8 +22,8 @@ export default {};
   }
 }
 @media screen and (max-width: 380px) {
-  .input-box {
-    width: 60vw;
+  .box {
+    width: 50vw;
   }
 }
 </style>

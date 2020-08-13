@@ -14,6 +14,7 @@
         <InputBtn type="primary">提交</InputBtn>
       </div>
       <router-link to="/forgot" class="forgot">忘記密碼</router-link>
+      <router-link to="/register" class="forgot">註冊</router-link>
     </div>
   </div>
 </template>
@@ -39,14 +40,13 @@ export default {
   padding: 30px;
   border-radius: 6px;
   box-shadow: 0 3px 7px #444444;
-  opacity: 0.8;
   background-color: #ffffff;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  padding: 10px 10px;
+  padding: 10px;
 }
 
 .forgot {

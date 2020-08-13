@@ -12,7 +12,7 @@ export default {};
 @import "../../styles/helpers/mixins.scss";
 .panel {
   @include panel;
-  z-index: 56;
+  z-index: 99;
   height: 100vh;
 }
 </style>

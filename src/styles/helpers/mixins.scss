@@ -62,7 +62,7 @@
 }
 
 /*=== btn ===*/
-@mixin btn {
+@mixin btn-init {
   border: none;
   outline: none;
   cursor: pointer;
@@ -73,4 +73,9 @@
   top: 15px;
   right: 10px;
   cursor: pointer;
+}
+
+/*=== overlay ===*/
+@mixin overlay {
+  filter: brightness(80%);
 }

@@ -15,6 +15,10 @@ export default {
       type: String,
       default: "",
     },
+    cornor: {
+      type: String,
+      default: "normal",
+    },
   },
   data: function () {
     return {
@@ -23,12 +27,13 @@ export default {
     };
   },
   created: function () {
-    this.btnClass.push(this.type);
+    this.btnClass.push(this.type, this.cornor);
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/helpers/mixins.scss";
 @mixin btn-color($bg, $ft) {
   background-color: $bg;
   color: $ft;
@@ -37,38 +42,48 @@ export default {
   }
 }
 
-@mixin decorate {
-  border-radius: 5px;
-  padding: 10px 20px;
-}
-
 .btn {
-  outline: none;
-  border: none;
+  @include btn-init;
 }
 
+/*=== cornor ===*/
+.rect {
+  padding: 10px 30px;
+}
+
+.normal {
+  border-radius: 10px;
+  padding: 10px 30px;
+}
+
+.round {
+  border-radius: 25px;
+  padding: 10px 30px;
+}
+
+.circle {
+  padding: 20px;
+  border-radius: 100%;
+}
+
+/*=== type ===*/
 .primary {
-  @include btn-color(#2fb1e8, #ffffff);
-  @include decorate;
+  @include btn-color(#2d86b9, #ffffff);
 }
 
 .secondary {
   @include btn-color(#868686, #ffffff);
-  @include decorate;
 }
 
 .success {
   @include btn-color(#11be78, #ffffff);
-  @include decorate;
 }
 
 .danger {
   @include btn-color(#e53838, #ffffff);
-  @include decorate;
 }
 
 .info {
   @include btn-color(#2d86b9, #ffffff);
-  @include decorate;
 }
 </style>

@@ -5,7 +5,7 @@
         <slot name="logo"></slot>
       </div>
       <div class="nav-menu">
-        <div class="nav-menu-btn" @click="isShow = !isShow">
+        <div class="nav-menu-btn" @click="menuToggle">
           <font-awesome-icon icon="bars" />
         </div>
         <template v-if="isShow">
@@ -35,11 +35,32 @@ export default {
     };
   },
 
+  methods: {
+    menuToggle: function () {
+      this.isShow = !this.isShow;
+      this.isShow
+        ? this.$store.commit("openOverlay")
+        : this.$store.commit("closeOverlay");
+    },
+    setOverlay: function () {
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        this.isShow
+          ? this.$store.commit("openOverlay")
+          : this.$store.commit("closeOverlay");
+      } else {
+        this.isShow = true;
+        this.$store.commit("closeOverlay");
+      }
+    },
+  },
+
   created: function () {
+    this.setOverlay();
     window.addEventListener("resize", () => {
       this.isShow = window.matchMedia("(max-width: 600px)").matches
         ? this.isShow
         : true;
+      this.setOverlay();
     });
   },
 
@@ -98,11 +119,11 @@ export default {
 @media screen and (max-width: 600px) {
   .nav,
   .nav-fixed {
-    z-index: 50;
+    z-index: 2;
     .nav-menu {
       .nav-menu-btn {
         display: block;
-        padding: 20px 5vw;
+        padding: 20px;
         color: #cccccc;
 
         &:hover {
@@ -120,6 +141,7 @@ export default {
         max-height: 100vh;
         min-height: 100vh;
         overflow-y: scroll;
+        z-index: 96;
       }
     }
   }

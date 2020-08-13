@@ -7,7 +7,10 @@
 <script>
 export default {
   props: {
-    handle: Function,
+    handle: {
+      type: Function,
+      default: () => {},
+    },
   },
 };
 </script>

@@ -1,7 +1,8 @@
-@import "./font.scss";
+//Google Font 思源黑體
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap");
 
 * {
-  font-family: "Noto Sans TC";
+  font-family: "Noto Sans TC", sans-serif;
   min-height: 0; /*避免flex layout overflow scroll 無法看到完整子元素*/
 }
 

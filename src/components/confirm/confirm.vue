@@ -42,11 +42,13 @@ export default {
       this.isShow = false;
       this.okHandle();
       this.$store.commit("unlock");
+      this.$store.commit("removeConfirm");
     },
     cancelDo: function () {
       this.isShow = false;
       this.cancelHandle();
       this.$store.commit("unlock");
+      this.$store.commit("removeConfirm");
     },
   },
   mounted: function () {
@@ -72,13 +74,12 @@ export default {
   @include center-layout;
   flex-direction: column;
   top: 0;
-  min-width: 30vw;
-  max-width: 500px;
   background-color: #ffffff;
 
   .message {
     text-align: center;
-    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
     padding: 20px 20px;
     border-bottom: #cccccc 1px solid;
     word-wrap: break-word;
@@ -108,7 +109,13 @@ export default {
 @media screen and (max-width: $md) {
   .ok,
   .cancel {
-    margin: 0 10px;
+    margin: 0 5px;
+  }
+  .confirm {
+    .message {
+      min-width: 40vw;
+      max-width: 50vw;
+    }
   }
 }
 </style>

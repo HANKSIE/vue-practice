@@ -1,8 +1,11 @@
 <template>
   <div>
-    <!-- <ConfirmPanel>
-      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm>
-    </ConfirmPanel>-->
+    <ConfirmPanel v-if="$store.state.confirm!==null">
+      <Confirm
+        :okHandle="$store.state.confirm.okHandle"
+        :cancelHandle="$store.state.confirm.cancelHandle"
+      >{{$store.state.confirm.message}}</Confirm>
+    </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
         <template v-slot:logo>BJ</template>
@@ -51,7 +54,7 @@
       </NavBar>
       <NavOverlay>
         <main class="main">
-          <ToastPanel>
+          <!-- <ToastPanel>
             <Toast
               v-for="(toast, index) in $store.state.toastQueue"
               :key="index"
@@ -59,7 +62,7 @@
               :close="toast.close"
               :instance="toast"
             >{{toast.message}}</Toast>
-          </ToastPanel>
+          </ToastPanel>-->
           <router-view></router-view>
         </main>
         <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>

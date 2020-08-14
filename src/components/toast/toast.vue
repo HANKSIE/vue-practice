@@ -7,7 +7,7 @@
     <div class="message">
       <slot></slot>
     </div>
-    <div class="close" @click="remove">
+    <div class="close" @click="remove" v-if="close">
       <font-awesome-icon icon="times" />
     </div>
   </div>
@@ -17,14 +17,8 @@
 export default {
   props: {
     instance: Object,
-    type: {
-      type: String,
-      default: "normal",
-    },
-    close: {
-      type: Boolean,
-      default: false,
-    },
+    type: String,
+    close: Boolean,
   },
   methods: {
     remove: function () {
@@ -49,6 +43,8 @@ export default {
 
         case "warn":
           return "exclamation-triangle";
+        default:
+          return "";
       }
     },
   },

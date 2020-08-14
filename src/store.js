@@ -8,21 +8,13 @@ const store = new Vuex.Store({
     isLock: false,
     isOverlay: false,
     toastQueue: [
-      { type: "normal", message: "normal", close: true },
-      { type: "info", message: "info", close: true },
-      { type: "success", message: "success", close: true },
-      { type: "warn", message: "warn", close: true },
-      { type: "error", message: "error, and it can be close", close: true },
+      // { type: "normal", message: "normal", close: true },
+      // { type: "info", message: "info", close: true },
+      // { type: "success", message: "success", close: true },
+      // { type: "warn", message: "warn", close: true },
+      // { type: "error", message: "error, and it can be close", close: true },
     ],
-    confirm: {
-      okHandle: () => {
-        console.log("ok");
-      },
-      cancelHandle: () => {
-        console.log("cancel");
-      },
-      message: "confirm",
-    },
+    confirm: null,
   },
   mutations: {
     lock: function(state) {
@@ -46,7 +38,7 @@ const store = new Vuex.Store({
       });
     },
     insertConfirm: function(state, payload) {
-      state.confir = payload.instance;
+      state.confirm = payload.instance;
     },
     removeConfirm: function(state) {
       state.confirm = null;

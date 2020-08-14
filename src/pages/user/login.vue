@@ -4,11 +4,11 @@
       <h1>登入</h1>
       <Group>
         <InputLabel>帳號</InputLabel>
-        <InputBox type="text" />
+        <input type="email" class="box" />
       </Group>
       <Group>
         <InputLabel>密碼</InputLabel>
-        <InputBox type="password" />
+        <input type="password" class="box" />
       </Group>
       <Group>
         <InputBtn type="primary">提交</InputBtn>
@@ -20,19 +20,17 @@
 </template>
 
 <script>
-import InputBox from "../../components/input/box";
 import InputBtn from "../../components/input/button";
 import InputLabel from "../../components/input/label";
 import Form from "../../components/form/form";
 import Group from "../../components/form/group";
 
 export default {
-  components: { InputBox, InputBtn, Form, Group, InputLabel },
+  components: { InputBtn, Form, Group, InputLabel },
 };
 </script>
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
-
 .page {
   @include center-layout;
   width: 100%;
@@ -43,5 +41,9 @@ export default {
   color: #444444;
   font-size: 13px;
   margin-top: 20px;
+}
+
+.box {
+  @include box;
 }
 </style>

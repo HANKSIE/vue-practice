@@ -75,6 +75,22 @@
   cursor: pointer;
 }
 
+/*=== input ===*/
+@mixin box {
+  border: none;
+  border-bottom: #666666 solid 2px;
+  color: #666666;
+  background-color: transparent;
+  outline: none;
+  margin: 5px 0;
+  width: 200px;
+  &:focus {
+    border-color: #222222;
+    caret-color: #222222;
+    color: #222222;
+  }
+}
+
 /*=== overlay ===*/
 @mixin overlay {
   filter: brightness(80%);

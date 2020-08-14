@@ -1,10 +1,11 @@
 <template>
   <div>
-    <ConfirmPanel v-if="$store.state.confirm!==null">
+    <ConfirmPanel v-if="$store.state.confirm !== null">
       <Confirm
         :okHandle="$store.state.confirm.okHandle"
         :cancelHandle="$store.state.confirm.cancelHandle"
-      >{{$store.state.confirm.message}}</Confirm>
+        >{{ $store.state.confirm.message }}</Confirm
+      >
     </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
@@ -22,7 +23,7 @@
                 <NavItem>貼文</NavItem>
               </DropBtn>
             </template>
-            <template v-slot:list="{isShow}">
+            <template v-slot:list="{ isShow }">
               <DropList v-show="isShow" :style="dropListStyle">
                 <NavItem>新增貼文</NavItem>
                 <NavItem>瀏覽貼文</NavItem>
@@ -41,7 +42,7 @@
                 <NavItem>106021014</NavItem>
               </DropBtn>
             </template>
-            <template v-slot:list="{isShow}">
+            <template v-slot:list="{ isShow }">
               <DropList v-show="isShow" :style="dropListStyle">
                 <NavItem>設定</NavItem>
                 <NavItem>貼文管理</NavItem>
@@ -54,15 +55,16 @@
       </NavBar>
       <NavOverlay>
         <main class="main">
-          <!-- <ToastPanel>
+          <ToastPanel>
             <Toast
               v-for="(toast, index) in $store.state.toastQueue"
               :key="index"
               :type="toast.type"
               :close="toast.close"
               :instance="toast"
-            >{{toast.message}}</Toast>
-          </ToastPanel>-->
+              >{{ toast.message }}</Toast
+            >
+          </ToastPanel>
           <router-view></router-view>
         </main>
         <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>
@@ -86,19 +88,19 @@ import Lock from "./components/confirm/lock";
 import Footer from "./components/footer";
 
 export default {
-  data: function () {
+  data: function() {
     return {
       dropListStyle: this.getDropListStyle(),
     };
   },
   methods: {
-    confirmOK: function () {
+    confirmOK: function() {
       console.log("ok");
     },
-    confirmCancel: function () {
+    confirmCancel: function() {
       alert("OMG");
     },
-    getDropListStyle: function () {
+    getDropListStyle: function() {
       return window.matchMedia("(max-width: 600px)").matches
         ? {
             position: "static",
@@ -109,7 +111,7 @@ export default {
     },
   },
 
-  created: function () {
+  created: function() {
     window.addEventListener("resize", () => {
       this.dropListStyle = this.getDropListStyle();
     });

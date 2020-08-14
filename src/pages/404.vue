@@ -8,7 +8,7 @@
 <script>
 import NotFound from "../assets/images/page_not_found.svg";
 export default {
-  data: function () {
+  data: function() {
     return {
       source: NotFound,
     };
@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/helpers/variables.scss";
 .page {
   width: 100%;
   height: 100%;
@@ -27,8 +28,20 @@ export default {
 }
 
 .image {
-  width: 100%;
+  width: 500px;
   height: auto;
+}
+
+@media screen and (max-width: $sm) {
+  .image {
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: $lg) {
+  .image {
+    width: 700px;
+  }
 }
 
 .element {

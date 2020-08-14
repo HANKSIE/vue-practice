@@ -4,11 +4,11 @@
       <h1>登入</h1>
       <Group>
         <InputLabel>帳號</InputLabel>
-        <input type="email" class="box" />
+        <InputBox type="email" v-model="email" />
       </Group>
       <Group>
         <InputLabel>密碼</InputLabel>
-        <input type="password" class="box" />
+        <InputBox type="password" v-model="password" />
       </Group>
       <Group>
         <InputBtn type="primary">提交</InputBtn>
@@ -20,30 +20,30 @@
 </template>
 
 <script>
-import InputBtn from "../../components/input/button";
-import InputLabel from "../../components/input/label";
+import InputBtn from "../../components/form/input/button";
+import InputLabel from "../../components/form/input/label";
+import InputBox from "../../components/form/input/box";
 import Form from "../../components/form/form";
 import Group from "../../components/form/group";
 
 export default {
-  components: { InputBtn, Form, Group, InputLabel },
+  data: function() {
+    return { email: "", password: "" };
+  },
+  components: { Form, Group, InputLabel, InputBox, InputBtn },
 };
 </script>
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
 .page {
   @include center-layout;
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
 .forgot {
   color: #444444;
   font-size: 13px;
   margin-top: 20px;
-}
-
-.box {
-  @include box;
 }
 </style>

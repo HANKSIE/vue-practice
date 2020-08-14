@@ -1,7 +1,7 @@
 <template>
-  <div class="form">
+  <form class="form">
     <slot></slot>
-  </div>
+  </form>
 </template>
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";

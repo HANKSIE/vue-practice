@@ -1,7 +1,10 @@
 <template>
   <div :class="type">
     <template v-if="icon.length !== 0">
-      <font-awesome-icon :icon="icon" :style="type=='info'?{color: '#028AC4'}:{}" />
+      <font-awesome-icon
+        :icon="icon"
+        :style="type == 'info' ? { color: '#028AC4' } : {}"
+      />
     </template>
 
     <div class="message">
@@ -21,7 +24,7 @@ export default {
     close: Boolean,
   },
   methods: {
-    remove: function () {
+    remove: function() {
       this.$store.commit({
         type: "removeFromToastQueue",
         instance: this.instance,
@@ -30,7 +33,7 @@ export default {
   },
 
   computed: {
-    icon: function () {
+    icon: function() {
       switch (this.type) {
         case "info":
           return "info-circle";
@@ -49,7 +52,7 @@ export default {
     },
   },
 
-  mounted: function () {
+  mounted: function() {
     if (!this.close) {
       setTimeout(() => {
         this.remove();

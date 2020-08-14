@@ -20,21 +20,21 @@ export default {
       default: "normal",
     },
   },
-  data: function () {
+  data: function() {
     return {
       btnStyle: {},
       btnClass: ["btn"],
     };
   },
-  created: function () {
+  created: function() {
     this.btnClass.push(this.type, this.cornor);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/helpers/mixins.scss";
-@import "../../styles/helpers/variables.scss";
+@import "../../../styles/helpers/mixins.scss";
+@import "../../../styles/helpers/variables.scss";
 
 @mixin btn-color($bg, $ft) {
   background-color: $bg;

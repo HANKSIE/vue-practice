@@ -14,7 +14,7 @@ export default {};
   padding: 20px 1.5vw;
   color: #ffffff;
   text-align: center;
-  font-size: 1.7vh;
+  font-size: 15px;
   &:hover {
     background-color: #666666;
   }

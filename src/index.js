@@ -3,6 +3,7 @@ import App from "./app.vue";
 // import vuetify from "./plugins/vuetify"; // path to vuetify export
 import axios from "axios";
 import VueAxios from "vue-axios";
+import UUID from "vue-uuid";
 
 import "./font-awesome";
 import "./styles/reset/all.scss";
@@ -13,6 +14,7 @@ import store from "./store";
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);
+Vue.use(UUID);
 
 new Vue({
   el: "#app",

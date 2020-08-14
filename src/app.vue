@@ -57,8 +57,8 @@
         <main class="main">
           <ToastPanel>
             <Toast
-              v-for="(toast, index) in $store.state.toastQueue"
-              :key="index"
+              v-for="toast in $store.state.toastQueue"
+              :key="$uuid.v4()"
               :type="toast.type"
               :close="toast.close"
               :instance="toast"
@@ -138,7 +138,7 @@ export default {
 .main {
   @include center-layout;
   width: 100%;
-  height: 85vh;
+  min-height: 85vh;
   background-color: #ffffff;
 }
 </style>

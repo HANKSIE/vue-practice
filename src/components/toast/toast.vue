@@ -1,44 +1,46 @@
 <template>
-  <div :class="classObj" v-if="isShow">
-    <template v-if="type.length !== 0">
+  <div :class="type">
+    <template v-if="icon.length !== 0">
       <font-awesome-icon :icon="icon" :style="type=='info'?{color: '#028AC4'}:{}" />
     </template>
 
     <div class="message">
       <slot></slot>
     </div>
-    <template v-if="close">
-      <div class="close" @click="isShow = false">
-        <font-awesome-icon icon="times" />
-      </div>
-    </template>
+    <div class="close" @click="remove">
+      <font-awesome-icon icon="times" />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    instance: Object,
     type: {
       type: String,
-      default: "",
+      default: "normal",
     },
     close: {
       type: Boolean,
       default: false,
     },
   },
-  data: function () {
-    return {
-      icon: "",
-      classObj: ["toast"],
-      isShow: true,
-    };
+  methods: {
+    remove: function () {
+      this.$store.commit({
+        type: "removeFromToastQueue",
+        instance: this.instance,
+      });
+    },
   },
-  created: function () {
-    this.icon = (() => {
+
+  computed: {
+    icon: function () {
       switch (this.type) {
         case "info":
           return "info-circle";
+
         case "success":
           return "check-circle";
 
@@ -48,14 +50,13 @@ export default {
         case "warn":
           return "exclamation-triangle";
       }
-    })();
-
-    this.classObj.push(this.type);
+    },
   },
+
   mounted: function () {
     if (!this.close) {
       setTimeout(() => {
-        this.isShow = false;
+        this.remove();
       }, 3000);
     }
   },
@@ -65,36 +66,44 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
 
-.toast {
+@mixin toast {
   @include pop;
   @include center-layout;
   align-items: flex-start;
   background-color: #ffffff;
   width: fit-content;
+}
 
-  .message {
-    padding: 0 20px;
-    text-align: center;
-    word-wrap: break-word;
-    word-break: break-all;
-  }
+.message {
+  padding: 0 20px;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-all;
+}
 
-  .close {
-    @include rt-close-btn;
-  }
+.close {
+  @include rt-close-btn;
+}
+
+.info,
+.normal {
+  @include toast;
 }
 
 .success {
+  @include toast;
   color: #0f7955;
   background-color: #7cecb0;
 }
 
 .error {
+  @include toast;
   background-color: #ec8d8d;
   color: #9b2d2d;
 }
 
 .warn {
+  @include toast;
   background-color: #e0d646;
   color: #684c00;
 }

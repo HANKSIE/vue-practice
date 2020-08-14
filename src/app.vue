@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ConfirmPanel>
-      <!-- <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm> -->
-    </ConfirmPanel>
+    <!-- <ConfirmPanel>
+      <Confirm :okHandle="confirmOK" :cancelHandle="confirmCancel">confirm</Confirm>
+    </ConfirmPanel>-->
     <Lock>
       <NavBar :isFixed="true">
         <template v-slot:logo>BJ</template>
@@ -52,11 +52,13 @@
       <NavOverlay>
         <main class="main">
           <ToastPanel>
-            <!-- <Toast>hi</Toast>
-          <Toast :type="`info`" :close="true">info</Toast>
-          <Toast :type="`success`">success</Toast>
-          <Toast :type="`warn`">warn</Toast>
-            <Toast :type="`error`" :close="true">error, and it can be closed</Toast>-->
+            <Toast
+              v-for="(toast, index) in $store.state.toastQueue"
+              :key="index"
+              :type="toast.type"
+              :close="toast.close"
+              :instance="toast"
+            >{{toast.message}}</Toast>
           </ToastPanel>
           <router-view></router-view>
         </main>

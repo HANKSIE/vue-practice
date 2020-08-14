@@ -7,6 +7,8 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/helpers/variables.scss";
+
 .box {
   border: none;
   border-bottom: #666666 solid 2px;
@@ -19,11 +21,6 @@ export default {};
     border-color: #222222;
     caret-color: #222222;
     color: #222222;
-  }
-}
-@media screen and (max-width: 380px) {
-  .box {
-    width: 50vw;
   }
 }
 </style>

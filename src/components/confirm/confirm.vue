@@ -57,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
+@import "../../styles/helpers/variables.scss";
 
 @mixin btn {
   cursor: pointer;
@@ -104,7 +105,7 @@ export default {
     }
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $md) {
   .ok,
   .cancel {
     margin: 0 10px;

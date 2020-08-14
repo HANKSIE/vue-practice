@@ -74,6 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
+@import "../../styles/helpers/variables.scss";
 
 @mixin element {
   padding: 20px 1.5vw;
@@ -116,7 +117,7 @@ export default {
   top: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $md) {
   .nav,
   .nav-fixed {
     z-index: 2;

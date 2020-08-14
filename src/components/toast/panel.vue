@@ -10,13 +10,14 @@ export default {};
 
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
+@import "../../styles/helpers/variables.scss";
 .panel {
   @include panel;
   min-height: 90vh;
   z-index: 97;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $md) {
   .panel {
     flex-direction: column-reverse;
     justify-content: flex-start;

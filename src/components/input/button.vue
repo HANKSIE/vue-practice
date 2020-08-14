@@ -34,6 +34,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
+@import "../../styles/helpers/variables.scss";
+
 @mixin btn-color($bg, $ft) {
   background-color: $bg;
   color: $ft;
@@ -52,7 +54,7 @@ export default {
 }
 
 .normal {
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px 30px;
 }
 
@@ -85,5 +87,11 @@ export default {
 
 .info {
   @include btn-color(#2d86b9, #ffffff);
+}
+
+@media screen and (min-width: $lg) {
+  .btn {
+    padding: 15px 45px;
+  }
 }
 </style>

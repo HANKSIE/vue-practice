@@ -1,18 +1,11 @@
 <template>
-  <div class="drop-btn" @click="handle">
+  <div class="drop-btn" @click="$emit('click')">
     <slot></slot>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    handle: {
-      type: Function,
-      default: () => {},
-    },
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

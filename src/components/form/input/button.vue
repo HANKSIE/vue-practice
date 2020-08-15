@@ -1,5 +1,5 @@
 <template>
-  <button :class="btnClass" @click="handle">
+  <button :class="btnClass" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
@@ -7,10 +7,6 @@
 <script>
 export default {
   props: {
-    handle: {
-      type: Function,
-      default: () => {},
-    },
     type: {
       type: String,
       default: "",
@@ -20,13 +16,13 @@ export default {
       default: "normal",
     },
   },
-  data: function() {
+  data: function () {
     return {
       btnStyle: {},
       btnClass: ["btn"],
     };
   },
-  created: function() {
+  created: function () {
     this.btnClass.push(this.type, this.cornor);
   },
 };

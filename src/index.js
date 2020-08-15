@@ -8,15 +8,18 @@ import UUID from "vue-uuid";
 import "./font-awesome";
 import "./styles/reset/all.scss";
 
-import router from "./router";
-import store from "./store";
+import router from "./router/router";
+import store from "./store/store";
 import http from "./http";
+import tip from "./tip";
 
 Vue.config.productionTip = false;
 
 // Vue.use(VueAxios, axios);
 Vue.use(UUID);
-Vue.prototype.$http = http;
+Vue.use(http);
+Vue.use(tip);
+// Vue.prototype.$http = http;
 
 new Vue({
   el: "#app",

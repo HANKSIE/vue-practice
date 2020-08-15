@@ -35,26 +35,23 @@ export default {
       const formData = new FormData(e.target);
       this.$http({
         method: "post",
-        url: "login.php",
+        url: "login",
         data: formData,
       })
-        .then(({ data }) => {
-          const type = data.isSuccess ? "success" : "error";
-          this.$store.commit({
-            type: "pushToToastQueue",
-            instance: {
-              message: data.message,
-              type,
-            },
+        .then((res) => {
+          this.$toast.launch({
+            message: res.data.message,
+            type: "normal",
           });
+          if (res.data.isSuccess) {
+            this.$store.commit("login");
+          }
         })
         .catch((err) => {
-          this.$store.commit({
-            type: "pushToToastQueue",
-            instance: {
-              message: "寄送失敗",
-              type: "error",
-            },
+          console.error(err);
+          this.$toast.launch({
+            message: "寄送失敗",
+            type: "error",
           });
         });
     },

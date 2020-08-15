@@ -1,16 +1,13 @@
 <template>
   <div :class="type">
     <template v-if="icon.length !== 0">
-      <font-awesome-icon
-        :icon="icon"
-        :style="type == 'info' ? { color: '#028AC4' } : {}"
-      />
+      <font-awesome-icon :icon="icon" :style="type == 'info' ? { color: '#028AC4' } : {}" />
     </template>
 
     <div class="message">
       <slot></slot>
     </div>
-    <div class="close" @click="remove" v-if="close">
+    <div class="close" @click="$toast.remove(instance)" v-if="close">
       <font-awesome-icon icon="times" />
     </div>
   </div>
@@ -20,20 +17,18 @@
 export default {
   props: {
     instance: Object,
-    type: String,
-    close: Boolean,
-  },
-  methods: {
-    remove: function() {
-      this.$store.commit({
-        type: "removeFromToastQueue",
-        instance: this.instance,
-      });
+    type: {
+      type: String,
+      default: "normal",
+    },
+    close: {
+      type: Boolean,
+      default: false,
     },
   },
 
   computed: {
-    icon: function() {
+    icon: function () {
       switch (this.type) {
         case "info":
           return "info-circle";
@@ -52,10 +47,10 @@ export default {
     },
   },
 
-  mounted: function() {
+  mounted: function () {
     if (!this.close) {
       setTimeout(() => {
-        this.remove();
+        this.$toast.remove(this.instance);
       }, 3000);
     }
   },

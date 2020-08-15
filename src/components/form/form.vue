@@ -3,6 +3,9 @@
     <slot></slot>
   </form>
 </template>
+<script>
+export default {};
+</script>>
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
 @import "../../styles/helpers/variables.scss";

@@ -4,8 +4,7 @@
       <Confirm
         :okHandle="$store.state.confirm.okHandle"
         :cancelHandle="$store.state.confirm.cancelHandle"
-        >{{ $store.state.confirm.message }}</Confirm
-      >
+      >{{ $store.state.confirm.message }}</Confirm>
     </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
@@ -19,7 +18,7 @@
           </router-link>
           <DropDown>
             <template v-slot:btn="{ handle }">
-              <DropBtn :handle="handle">
+              <DropBtn @click="handle">
                 <NavItem>貼文</NavItem>
               </DropBtn>
             </template>
@@ -38,7 +37,7 @@
           </router-link>
           <DropDown>
             <template v-slot:btn="{ handle }">
-              <DropBtn :handle="handle">
+              <DropBtn @click="handle">
                 <NavItem>106021014</NavItem>
               </DropBtn>
             </template>
@@ -48,6 +47,9 @@
                 <NavItem>貼文管理</NavItem>
                 <NavItem>訂單查詢</NavItem>
                 <NavItem>購物車</NavItem>
+                <NavItem>
+                  <DropBtn @click="logout">登出</DropBtn>
+                </NavItem>
               </DropList>
             </template>
           </DropDown>
@@ -62,8 +64,7 @@
               :type="toast.type"
               :close="toast.close"
               :instance="toast"
-              >{{ toast.message }}</Toast
-            >
+            >{{ toast.message }}</Toast>
           </ToastPanel>
           <router-view></router-view>
         </main>
@@ -88,19 +89,19 @@ import Lock from "./components/confirm/lock";
 import Footer from "./components/footer";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       dropListStyle: this.getDropListStyle(),
     };
   },
   methods: {
-    confirmOK: function() {
+    confirmOK: function () {
       console.log("ok");
     },
-    confirmCancel: function() {
+    confirmCancel: function () {
       alert("OMG");
     },
-    getDropListStyle: function() {
+    getDropListStyle: function () {
       return window.matchMedia("(max-width: 600px)").matches
         ? {
             position: "static",
@@ -109,9 +110,31 @@ export default {
             position: "absolute",
           };
     },
+    logout: function () {
+      this.$http({
+        method: "get",
+        url: "logout",
+        params: {},
+      })
+        .then((res) => {
+          this.$toast.launch({
+            message: res.data.message,
+          });
+          if (res.data.isSuccess) {
+            this.$store.commit("logout");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          this.$toast.launch({
+            message: "登出失敗",
+            type: "error",
+          });
+        });
+    },
   },
 
-  created: function() {
+  created: function () {
     window.addEventListener("resize", () => {
       this.dropListStyle = this.getDropListStyle();
     });

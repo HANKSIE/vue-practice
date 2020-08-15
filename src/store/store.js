@@ -15,7 +15,7 @@ const store = new Vuex.Store({
       // { type: "error", message: "error, and it can be close", close: true },
     ],
     confirm: null,
-    auth: false,
+    auth: null,
   },
   mutations: {
     lock: function(state) {
@@ -44,11 +44,11 @@ const store = new Vuex.Store({
     removeConfirm: function(state) {
       state.confirm = null;
     },
-    login: function(state) {
-      state.auth = true;
+    login: function(state, payload) {
+      state.auth = payload.auth;
     },
     logout: function(state) {
-      state.auth = false;
+      state.auth = null;
     },
   },
 });

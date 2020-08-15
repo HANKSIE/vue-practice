@@ -37,35 +37,42 @@
           <router-link to="/contact">
             <NavItem>連絡我們</NavItem>
           </router-link>
-          <router-link to="/login">
-            <NavItem>登入</NavItem>
-          </router-link>
-          <DropDown>
-            <template v-slot:btn="{ handle }">
-              <DropBtn @click="handle">
-                <NavItem>106021014</NavItem>
-              </DropBtn>
-            </template>
-            <template v-slot:list="{ isShow }">
-              <DropList v-show="isShow" :style="dropListStyle">
-                <DropBtn>
-                  <NavItem>設定</NavItem>
+          <template v-if="$store.state.auth === null">
+            <router-link to="/login">
+              <NavItem>登入</NavItem>
+            </router-link>
+          </template>
+
+          <template v-if="$store.state.auth !== null">
+            <DropDown>
+              <template v-slot:btn="{ handle }">
+                <DropBtn @click="handle">
+                  <NavItem>{{ $store.state.auth.name }}</NavItem>
                 </DropBtn>
-                <DropBtn>
-                  <NavItem>貼文管理</NavItem>
-                </DropBtn>
-                <DropBtn>
-                  <NavItem>訂單查詢</NavItem>
-                </DropBtn>
-                <DropBtn>
-                  <NavItem>購物車</NavItem>
-                </DropBtn>
-                <NavItem>
-                  <DropBtn @click="logout">登出</DropBtn>
-                </NavItem>
-              </DropList>
-            </template>
-          </DropDown>
+              </template>
+              <template v-slot:list="{ isShow }">
+                <DropList v-show="isShow" :style="dropListStyle">
+                  <DropBtn>
+                    <NavItem>設定</NavItem>
+                  </DropBtn>
+                  <DropBtn>
+                    <NavItem>貼文管理</NavItem>
+                  </DropBtn>
+                  <DropBtn>
+                    <NavItem>訂單查詢</NavItem>
+                  </DropBtn>
+                  <DropBtn>
+                    <NavItem>購物車</NavItem>
+                  </DropBtn>
+                  <DropBtn @click="logout">
+                    <NavItem>
+                      登出
+                    </NavItem>
+                  </DropBtn>
+                </DropList>
+              </template>
+            </DropDown>
+          </template>
         </template>
       </NavBar>
       <NavOverlay>

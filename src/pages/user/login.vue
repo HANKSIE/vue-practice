@@ -27,11 +27,11 @@ import Form from "../../components/form/form";
 import Group from "../../components/form/group";
 
 export default {
-  data: function () {
+  data: function() {
     return { email: "", password: "" };
   },
   methods: {
-    login: function (e) {
+    login: function(e) {
       const formData = new FormData(e.target);
       this.$http({
         method: "post",
@@ -43,8 +43,8 @@ export default {
             message: res.data.message,
             type: "normal",
           });
-          if (res.data.isSuccess) {
-            this.$store.commit("login");
+          if (res.data.auth !== null) {
+            this.$store.commit({ type: "login", auth: res.data.auth });
             this.$router.push("/");
           }
         })

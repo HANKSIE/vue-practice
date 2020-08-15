@@ -45,6 +45,7 @@ export default {
           });
           if (res.data.isSuccess) {
             this.$store.commit("login");
+            this.$router.push("/");
           }
         })
         .catch((err) => {

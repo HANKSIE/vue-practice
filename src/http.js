@@ -10,7 +10,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function(config) {
-    console.log(config);
     const token = "csrf_test_name";
     const hash = getCookie("csrf_cookie_name");
     // //送出請求前添加ci_csrf_token
@@ -28,8 +27,16 @@ instance.interceptors.request.use(
   }
 );
 
+// axios.interceptors.response.use(function (response) {
+//     return response;
+//   }, function (error) {
+//     return Promise.reject(error);
+//   });
+
 const install = () => {
   Vue.prototype.$http = instance;
 };
 
 export default install;
+
+export { instance };

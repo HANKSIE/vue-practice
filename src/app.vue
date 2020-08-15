@@ -24,8 +24,12 @@
             </template>
             <template v-slot:list="{ isShow }">
               <DropList v-show="isShow" :style="dropListStyle">
-                <NavItem>新增貼文</NavItem>
-                <NavItem>瀏覽貼文</NavItem>
+                <DropBtn>
+                  <NavItem>新增貼文</NavItem>
+                </DropBtn>
+                <DropBtn>
+                  <NavItem>瀏覽貼文</NavItem>
+                </DropBtn>
               </DropList>
             </template>
           </DropDown>
@@ -43,10 +47,18 @@
             </template>
             <template v-slot:list="{ isShow }">
               <DropList v-show="isShow" :style="dropListStyle">
-                <NavItem>設定</NavItem>
-                <NavItem>貼文管理</NavItem>
-                <NavItem>訂單查詢</NavItem>
-                <NavItem>購物車</NavItem>
+                <DropBtn>
+                  <NavItem>設定</NavItem>
+                </DropBtn>
+                <DropBtn>
+                  <NavItem>貼文管理</NavItem>
+                </DropBtn>
+                <DropBtn>
+                  <NavItem>訂單查詢</NavItem>
+                </DropBtn>
+                <DropBtn>
+                  <NavItem>購物車</NavItem>
+                </DropBtn>
                 <NavItem>
                   <DropBtn @click="logout">登出</DropBtn>
                 </NavItem>
@@ -122,6 +134,10 @@ export default {
           });
           if (res.data.isSuccess) {
             this.$store.commit("logout");
+            //該頁需權限才跳轉到login頁面
+            if (this.$router.currentRoute.meta.requireAuth) {
+              this.$router.push("/login");
+            }
           }
         })
         .catch((err) => {

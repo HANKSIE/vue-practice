@@ -29,10 +29,10 @@ class Confirm {
 }
 
 const install = () => {
-  Vue.$toast = Toast;
-  Vue.$confirm = Confirm;
   Vue.prototype.$toast = Toast;
   Vue.prototype.$confirm = Confirm;
 };
 
 export default install;
+
+export { Toast, Confirm };

@@ -4,6 +4,7 @@ import App from "./app.vue";
 // import axios from "axios";
 // import VueAxios from "vue-axios";
 import UUID from "vue-uuid";
+import VueMeta from "vue-meta";
 
 import "./font-awesome";
 import "./styles/reset/all.scss";
@@ -19,7 +20,7 @@ Vue.config.productionTip = false;
 Vue.use(UUID);
 Vue.use(http);
 Vue.use(tip);
-// Vue.prototype.$http = http;
+Vue.use(VueMeta);
 
 new Vue({
   el: "#app",

@@ -4,7 +4,8 @@
       <Confirm
         :okHandle="$store.state.confirm.okHandle"
         :cancelHandle="$store.state.confirm.cancelHandle"
-      >{{ $store.state.confirm.message }}</Confirm>
+        >{{ $store.state.confirm.message }}</Confirm
+      >
     </ConfirmPanel>
     <Lock>
       <NavBar :isFixed="true">
@@ -76,9 +77,13 @@
               :type="toast.type"
               :close="toast.close"
               :instance="toast"
-            >{{ toast.message }}</Toast>
+              >{{ toast.message }}</Toast
+            >
           </ToastPanel>
-          <router-view></router-view>
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
         </main>
         <Footer :style="{ height: '15vh' }">Copyright © 2020 BYJT</Footer>
       </NavOverlay>
@@ -101,19 +106,20 @@ import Lock from "./components/confirm/lock";
 import Footer from "./components/footer";
 
 export default {
-  data: function () {
+  data: function() {
     return {
       dropListStyle: this.getDropListStyle(),
+      metatag: {},
     };
   },
   methods: {
-    confirmOK: function () {
+    confirmOK: function() {
       console.log("ok");
     },
-    confirmCancel: function () {
+    confirmCancel: function() {
       alert("OMG");
     },
-    getDropListStyle: function () {
+    getDropListStyle: function() {
       return window.matchMedia("(max-width: 600px)").matches
         ? {
             position: "static",
@@ -122,7 +128,7 @@ export default {
             position: "absolute",
           };
     },
-    logout: function () {
+    logout: function() {
       this.$http({
         method: "get",
         url: "logout",
@@ -150,10 +156,25 @@ export default {
     },
   },
 
-  created: function () {
+  created: function() {
     window.addEventListener("resize", () => {
       this.dropListStyle = this.getDropListStyle();
     });
+    this.$http({
+      method: "get",
+      url: "basedata/metatag",
+      params: {},
+    })
+      .then((res) => {
+        this.metatag = res.data.metatag;
+      })
+      .catch((err) => {
+        console.error(err);
+        this.$toast.launch({
+          message: "無法取得meta tag",
+          type: "error",
+        });
+      });
   },
 
   components: {
@@ -169,6 +190,16 @@ export default {
     Footer,
     DropList,
     NavOverlay,
+  },
+
+  metaInfo: function() {
+    return {
+      meta: [
+        { name: "keywords", content: this.metatag.keywords },
+        { name: "description", content: this.metatag.description },
+      ],
+      titleTemplate: this.metatag.title,
+    };
   },
 };
 </script>

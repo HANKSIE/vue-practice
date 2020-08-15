@@ -28,41 +28,40 @@ const router = new VueRouter({
   ],
 });
 
-//當頁面重載/第一次進入頁面時，先確認&設定是否登入，再設定路由守衛
-http({
-  method: "post",
-  url: "authcheck",
-  data: new FormData(),
-})
-  .then((res) => {
-    if (res.data.auth) {
-      store.commit("login");
-    }
-    setGuard();
-  })
-  .catch((err) => {
-    setGuard();
-    console.error(err);
-    Toast.launch({
-      message: "權限確認失敗",
-      type: "error",
+router.beforeEach(async (to, from, next) => {
+  //需要權限卻沒有權限
+  if (to.meta.requireAuth && !store.state.auth) {
+    const auth = await http({
+      method: "post",
+      url: "authcheck",
+      data: new FormData(),
     });
-  });
 
-//設置路由守衛
-function setGuard() {
-  router.beforeEach((to, from, next) => {
-    //需要權限卻沒有權限
-    if (to.meta.requireAuth && !store.state.auth) {
+    try {
+      if (auth.data.auth) {
+        store.commit("login");
+      }
+    } catch (err) {
+      console.error(err);
+      Toast.launch({
+        message: "權限確認失敗",
+        type: "error",
+      });
+    }
+
+    //沒有權限
+    if (!store.state.auth) {
       Toast.launch({ message: "您沒有權限存取該頁面, 請先登入" });
       next({ path: "/login" });
-    } //已登入卻跳到登入畫面
-    else if (to.path === "/login" && store.state.auth) {
-      next(from); //導回前一頁
     } else {
       next();
     }
-  });
-}
+  } //已登入卻跳到登入畫面
+  else if (to.path === "/login" && store.state.auth) {
+    next(from); //導回前一頁
+  } else {
+    next();
+  }
+});
 
 export default router;

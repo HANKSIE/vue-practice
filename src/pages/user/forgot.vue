@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Form class="form">
+    <Form class="form" @submit="sendAuthMail">
       <h1>找回您的密碼</h1>
       <Group class="group">
         <InputLabel>請填寫您的email:</InputLabel>
-        <InputBox type="email" v-model="email" />
+        <InputBox type="email" name="email" required v-model="email" />
       </Group>
-      <InputBtn type="primary" :handle="sendAuthMail">寄送驗證信</InputBtn>
+      <InputBtn type="primary">寄送驗證信</InputBtn>
     </Form>
   </div>
 </template>
@@ -19,17 +19,15 @@ import InputBox from "../../components/form/input/box";
 import InputLabel from "../../components/form/input/label";
 
 export default {
-  data: function() {
+  data: function () {
     return { email: "" };
   },
   methods: {
-    sendAuthMail: function() {
-      const formData = new FormData();
-      formData.append("email", this.email);
-
-      this.axios({
+    sendAuthMail: function (e) {
+      const formData = new FormData(e.target);
+      this.$http({
         method: "post",
-        url: "url",
+        url: "test.php",
         data: formData,
       })
         .then((res) => {

@@ -1,5 +1,5 @@
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent="$emit('submit', $event)">
     <slot></slot>
   </form>
 </template>

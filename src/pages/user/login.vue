@@ -1,14 +1,14 @@
 <template>
   <div class="page">
-    <Form>
+    <Form @submit="login">
       <h1>登入</h1>
       <Group>
         <InputLabel>帳號</InputLabel>
-        <InputBox type="email" v-model="email" />
+        <InputBox type="email" name="email" required v-model="email" />
       </Group>
       <Group>
         <InputLabel>密碼</InputLabel>
-        <InputBox type="password" v-model="password" />
+        <InputBox type="password" name="password" required v-model="password" />
       </Group>
       <Group>
         <InputBtn type="primary">提交</InputBtn>
@@ -27,8 +27,37 @@ import Form from "../../components/form/form";
 import Group from "../../components/form/group";
 
 export default {
-  data: function() {
+  data: function () {
     return { email: "", password: "" };
+  },
+  methods: {
+    login: function (e) {
+      const formData = new FormData(e.target);
+      this.$http({
+        method: "post",
+        url: "login.php",
+        data: formData,
+      })
+        .then(({ data }) => {
+          const type = data.isSuccess ? "success" : "error";
+          this.$store.commit({
+            type: "pushToToastQueue",
+            instance: {
+              message: data.message,
+              type,
+            },
+          });
+        })
+        .catch((err) => {
+          this.$store.commit({
+            type: "pushToToastQueue",
+            instance: {
+              message: "寄送失敗",
+              type: "error",
+            },
+          });
+        });
+    },
   },
   components: { Form, Group, InputLabel, InputBox, InputBtn },
 };

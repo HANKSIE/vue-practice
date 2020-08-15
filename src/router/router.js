@@ -29,33 +29,31 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  //每個路由跳轉前都檢查權限
+  const auth = await http({
+    method: "post",
+    url: "authcheck",
+    data: new FormData(),
+  });
+
+  try {
+    if (auth.data.auth !== null) {
+      store.commit({ type: "login", auth: auth.data.auth });
+    } else {
+      store.commit("logout");
+    }
+  } catch (err) {
+    console.error(err);
+    Toast.launch({
+      message: "權限確認失敗",
+      type: "error",
+    });
+  }
+
   //需要權限卻沒有權限
   if (to.meta.requireAuth && store.state.auth === null) {
-    const auth = await http({
-      method: "post",
-      url: "authcheck",
-      data: new FormData(),
-    });
-
-    try {
-      if (auth.data.auth !== null) {
-        store.commit({ type: "login", auth: auth.data.auth });
-      }
-    } catch (err) {
-      console.error(err);
-      Toast.launch({
-        message: "權限確認失敗",
-        type: "error",
-      });
-    }
-
-    //沒有權限
-    if (store.state.auth === null) {
-      Toast.launch({ message: "您沒有權限存取該頁面, 請先登入" });
-      next({ path: "/login" });
-    } else {
-      next();
-    }
+    Toast.launch({ message: "您沒有權限存取該頁面, 請先登入" });
+    next({ path: "/login" });
   } //已登入卻跳到登入畫面
   else if (to.path === "/login" && store.state.auth !== null) {
     next(from); //導回前一頁

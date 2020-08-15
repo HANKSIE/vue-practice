@@ -6,31 +6,38 @@
 </template>
 
 <script>
+import { instance as http } from "../http";
 export default {
-  data: function () {
+  data: function() {
     return {
       content: "",
     };
   },
-  created: function () {
-    this.$http({
+  //第一次跳轉之前載入about，載入完畢才進入該頁面
+  async beforeRouteEnter(to, from, next) {
+    const about = await http({
       method: "get",
       url: "about",
       params: {},
-    })
-      .then((res) => {
-        this.content = res.data.about;
-      })
-      .catch((err) => {
-        console.error(err);
-        this.$toast.launch({
-          message: "訊息取得失敗",
+    });
+
+    try {
+      next((vm) => {
+        vm.content = about.data.about;
+      });
+    } catch (err) {
+      console.error(err);
+
+      next((vm) => {
+        vm.content = "無法取得資料";
+        vm.$toast.launch({
+          message: "權限確認失敗",
           type: "error",
         });
       });
+    }
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

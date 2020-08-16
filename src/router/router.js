@@ -7,7 +7,7 @@ import Contact from "../pages/contact.vue";
 import Login from "../pages/login.vue";
 import Register from "../pages/register.vue";
 import User from "../pages/user/user.vue";
-import Forgot from "../pages/user/forgot.vue";
+import Forgot from "../pages/forgot.vue";
 import Profile from "../pages/user/profile.vue";
 import Store from "../pages/store.vue";
 

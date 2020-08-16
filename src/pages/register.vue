@@ -51,7 +51,6 @@ import InputLabel from "../components/form/input/label";
 import InputBox from "../components/form/input/box";
 import Form from "../components/form/form";
 import Group from "../components/form/group";
-import PopWindow from "../components/popWindow";
 import Card from "../components/card";
 
 export default {
@@ -124,7 +123,6 @@ export default {
     InputLabel,
     InputBox,
     InputBtn,
-    PopWindow,
     Card,
   },
 };

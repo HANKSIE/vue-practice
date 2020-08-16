@@ -37,6 +37,7 @@ export default {
 
 .content {
   padding: 30px;
+  text-align: center;
   @include vc-layout;
 }
 </style>

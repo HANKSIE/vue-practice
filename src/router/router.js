@@ -4,8 +4,12 @@ import NotFound from "../pages/404.vue";
 import Home from "../pages/home.vue";
 import About from "../pages/about.vue";
 import Contact from "../pages/contact.vue";
-import Login from "../pages/user/login.vue";
+import Login from "../pages/login.vue";
+import Register from "../pages/register.vue";
+import User from "../pages/user/user.vue";
 import Forgot from "../pages/user/forgot.vue";
+import Profile from "../pages/user/profile.vue";
+import Store from "../pages/store.vue";
 
 import store from "../store/store";
 import { Toast } from "../tip";
@@ -17,13 +21,31 @@ const router = new VueRouter({
   routes: [
     { path: "/", component: Home },
     { path: "/login", component: Login },
+    { path: "/register", component: Register },
     { path: "/forgot", component: Forgot },
+    {
+      path: "/user/:id",
+      component: User,
+      meta: {
+        requireAuth: true,
+      },
+      children: [
+        {
+          path: "profile",
+          component: Profile,
+          meta: {
+            requireAuth: true,
+          },
+        },
+      ],
+    },
     {
       path: "/about",
       component: About,
       meta: { requireAuth: true, keepAlive: true },
     },
     { path: "/contact", component: Contact },
+    { path: "/store", component: Store, meta: { requireAuth: true } },
     { path: "*", component: NotFound },
   ],
 });

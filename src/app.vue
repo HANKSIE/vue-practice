@@ -37,6 +37,9 @@
           <router-link to="/contact">
             <NavItem>連絡我們</NavItem>
           </router-link>
+          <router-link to="/store">
+            <NavItem>商城</NavItem>
+          </router-link>
           <template v-if="$store.state.auth === null">
             <router-link to="/login">
               <NavItem>登入</NavItem>
@@ -53,7 +56,9 @@
               <template v-slot:list="{ isShow }">
                 <DropList v-show="isShow" :style="dropListStyle">
                   <DropBtn>
-                    <NavItem>設定</NavItem>
+                    <router-link to="/user/profile">
+                      <NavItem>設定</NavItem>
+                    </router-link>
                   </DropBtn>
                   <DropBtn>
                     <NavItem>貼文管理</NavItem>

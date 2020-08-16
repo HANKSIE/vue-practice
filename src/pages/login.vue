@@ -3,7 +3,7 @@
     <Form @submit="login">
       <h1>登入</h1>
       <Group>
-        <InputLabel>帳號</InputLabel>
+        <InputLabel>信箱</InputLabel>
         <InputBox type="email" name="email" required v-model="email" />
       </Group>
       <Group>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import InputBtn from "../../components/form/input/button";
-import InputLabel from "../../components/form/input/label";
-import InputBox from "../../components/form/input/box";
-import Form from "../../components/form/form";
-import Group from "../../components/form/group";
+import InputBtn from "../components/form/input/button";
+import InputLabel from "../components/form/input/label";
+import InputBox from "../components/form/input/box";
+import Form from "../components/form/form";
+import Group from "../components/form/group";
 
 export default {
   data: function() {
@@ -61,7 +61,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../../styles/helpers/mixins.scss";
+@import "../styles/helpers/mixins.scss";
 .page {
   @include center-layout;
   height: 100%;

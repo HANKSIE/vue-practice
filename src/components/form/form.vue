@@ -5,16 +5,15 @@
 </template>
 <script>
 export default {};
-</script>>
+</script>
+>
 <style lang="scss" scoped>
 @import "../../styles/helpers/mixins.scss";
 @import "../../styles/helpers/variables.scss";
 .form {
   @include vc-layout;
+  @include card;
   padding: 30px;
-  border-radius: 6px;
-  box-shadow: 0 3px 7px #444444;
-  background-color: #ffffff;
 }
 
 @media screen and (min-width: $lg) {

@@ -16,13 +16,13 @@ export default {
       default: "normal",
     },
   },
-  data: function () {
+  data: function() {
     return {
       btnStyle: {},
-      btnClass: ["btn"],
+      btnClass: ["initial"],
     };
   },
-  created: function () {
+  created: function() {
     this.btnClass.push(this.type, this.cornor);
   },
 };
@@ -40,7 +40,7 @@ export default {
   }
 }
 
-.btn {
+.initial {
   @include btn-init;
 }
 
@@ -86,7 +86,7 @@ export default {
 }
 
 @media screen and (min-width: $lg) {
-  .btn {
+  .initial {
     padding: 15px 45px;
   }
 }

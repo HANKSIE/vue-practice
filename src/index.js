@@ -1,8 +1,6 @@
 import Vue from "vue";
 import App from "./app.vue";
 // import vuetify from "./plugins/vuetify"; // path to vuetify export
-// import axios from "axios";
-// import VueAxios from "vue-axios";
 import UUID from "vue-uuid";
 import VueMeta from "vue-meta";
 
@@ -16,7 +14,6 @@ import tip from "./tip";
 
 Vue.config.productionTip = false;
 
-// Vue.use(VueAxios, axios);
 Vue.use(UUID);
 Vue.use(http);
 Vue.use(tip);

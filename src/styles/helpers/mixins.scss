@@ -65,6 +65,8 @@
 @mixin btn-init {
   border: none;
   outline: none;
+  background-color: transparent;
+  color: #444444;
   cursor: pointer;
 }
 
@@ -78,4 +80,11 @@
 /*=== overlay ===*/
 @mixin overlay {
   filter: brightness(80%);
+}
+
+/*=== card ===*/
+@mixin card {
+  border-radius: 6px;
+  box-shadow: 0 3px 7px #444444;
+  background-color: #ffffff;
 }

@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import NotFound from "../assets/images/page_not_found.svg";
+import NotFound from "../assets/page_not_found.svg";
 export default {
-  data: function() {
+  data: function () {
     return {
       source: NotFound,
     };
